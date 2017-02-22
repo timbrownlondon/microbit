@@ -2,7 +2,7 @@ from microbit import *
 
 import random
 
-face = [
+dice_face = [
     Image('::009'),
     Image(':09::0009'),
     Image(':09:009:0009'),
@@ -12,20 +12,20 @@ face = [
 ]
 
 
-def show_throw():
+def throw_dice():
     for i in range(10):
         for n in range(6):
-            display.show(face[n])
+            display.show(dice_face[n])
             sleep(40)
 
 
 outcome = random.choice(range(6))
 while(True):
     if button_a.is_pressed():
-        show_throw()
+        throw_dice()
         outcome = random.choice(range(6))
     sleep(50)
-    display.show(face[outcome])
+    display.show(dice_face[outcome])
     if button_b.is_pressed():
         display.show(str(outcome + 1))
 
