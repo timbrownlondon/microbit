@@ -11,11 +11,18 @@ others_score = 0
 
 
 def get_others_move():
+    val = 0.2
     while(True):
+        # assumes buzzer attached between GRD and Pin0
+        # play blips to let other player know we are waiting
+        for i in range(200):
+            pin0.write_digital(1)
+            sleep(val)
+            pin0.write_digital(0)
+            sleep(val)
+        sleep(1500)
         message = radio.receive()
         if message in moves:
-            display.show(Image.CHESSBOARD)
-            sleep(1000)
             return message
 
 
@@ -39,7 +46,7 @@ while True:
     if button_a.was_pressed():
         choice = (choice + 1) % len(moves)
     display.show(moves[choice])
-    sleep(100)
+    sleep(500)
     if button_b.was_pressed():
         display.show(Image.ARROW_N)
         radio.send(moves[choice])
@@ -58,9 +65,6 @@ while True:
         else:
             display.show('-')
         sleep(1000)
-
-        while not button_a.was_pressed():
-            sleep(50)
         show_scores()
         display.scroll('***')
 
@@ -68,5 +72,3 @@ while True:
         button_a.get_presses()
         button_b.get_presses()
         choice = random.randint(0, 2)
-
-
