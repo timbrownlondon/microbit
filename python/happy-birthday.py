@@ -1,5 +1,6 @@
 from microbit import *
 import random
+import music
 
 invaders = [
     [
@@ -25,14 +26,16 @@ def show_animation(image_list):
 def show_text(text):
     for char in text:
         display.show(char)
-        sleep(1000)
+        sleep(700)
         display.show(' ')
         sleep(100)
+
+music.set_tempo(bpm=300)
 
 while True:
     display.show(Image.HEART)
     sleep(3000)
+    music.play(music.BIRTHDAY, wait=False)
     show_text('HAPPYBIRTHDAY')
-    display.show(Image.HEART)
-    sleep(3000)
+    display.show(' ', 300)
     show_animation(random.choice(invaders))
